@@ -13,7 +13,9 @@ class List extends React.Component {
 
         this.state = {
             word: "",
-            list: []
+            list: [],
+            inputClass:"",
+            status:""
         }
     }
 
@@ -28,17 +30,26 @@ class List extends React.Component {
     }
 
     addItem() {
-        console.log(this.state.word);
         let newEntry = this.state.word;
 
-        //spread operator
-        this.setState({
-            list: [...this.state.list, newEntry]
+        //validity checking: testing that entry must be between 2 and 200 chars
+        if (newEntry.length < 2 || newEntry.length > 200) {
+            this.setState({
+                inputClass: "warning",
+                status: "Entry must be between 2 and 5 characters!"
+            }, () => {
+                console.log(this.state.inputClass);
+            });
+            return;
+        } else {
+            //add entry to array
+            this.setState({
+                list: [...this.state.list, newEntry]
             }, () => {
                 console.log(this.state.list)
-            })
+            });
+        }
     }
-
 
   render() {
 
@@ -49,10 +60,9 @@ class List extends React.Component {
         );
       })
 
-      console.log("rendering");
       return (
         <div className="list">
-          <input onChange={()=>{this.changeHandler()}} value={this.state.word}/>
+          <input className={this.state.inputClass} onChange={()=>{this.changeHandler()}} value={this.state.word}/>
           <button onClick={()=>{this.addItem()}}>add item</button>
           <ul>
             {taskList}
