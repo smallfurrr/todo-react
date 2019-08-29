@@ -1,20 +1,35 @@
 class List extends React.Component {
-  constructor(){
-    super()
+    constructor() {
+        super()
 
-    this.state = {
-      word:"",
-      list : []
+        this.state = {
+            word: "",
+            list: []
+        }
     }
-  }
 
-  addItem(){
-    debugger;
-  }
+    changeHandler() {
+        let typed = event.target.value;
 
-  changeHandler(){
-    debugger;
-  }
+        this.setState({
+            word: typed
+        }, () => {
+            console.log(this.state.word);
+        })
+    }
+
+    addItem() {
+        console.log(this.state.word);
+        let newEntry = this.state.word;
+
+        //spread operator
+        this.setState({
+            list: [...this.state.list, newEntry]
+            }, () => {
+                console.log(this.state.list)
+            })
+    }
+
 
   render() {
       // render the list with a map() here
@@ -33,4 +48,3 @@ ReactDOM.render(
     <List/>,
     document.getElementById('root')
 );
-
