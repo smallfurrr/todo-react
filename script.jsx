@@ -1,3 +1,12 @@
+class Task extends React.Component {
+    render() {
+        return (
+            <li>{this.props.item}</li>
+        )
+    }
+}
+
+
 class List extends React.Component {
     constructor() {
         super()
@@ -32,13 +41,22 @@ class List extends React.Component {
 
 
   render() {
-      // render the list with a map() here
+
+      const taskList = this.state.list.map((task, taskIndex) => {
+
+        return(
+            <Task key={taskIndex} item={task}/>
+        );
+      })
 
       console.log("rendering");
       return (
         <div className="list">
           <input onChange={()=>{this.changeHandler()}} value={this.state.word}/>
           <button onClick={()=>{this.addItem()}}>add item</button>
+          <ul>
+            {taskList}
+          </ul>
         </div>
       );
   }
